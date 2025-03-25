@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import { closeMenu } from "../utils/appSlice";
 import { YOUTUBE_VIDEO_BY_ID } from "../utils/constants";
+import CommentsContainer from "./CommentsContainer";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -50,7 +51,9 @@ const WatchPage = () => {
         </div>
         <div className="w-full">{/* <LiveChat /> */}</div>
       </div>
-      {/* <CommentsContainer /> */}
+      <div className="w-[1000px]">
+        <CommentsContainer />
+      </div>
     </div>
   );
 };
