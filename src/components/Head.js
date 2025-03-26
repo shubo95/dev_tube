@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utils/appSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/constants";
@@ -13,6 +13,7 @@ const Head = () => {
   const searchCache = useSelector((store) => store.search);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const searchBarRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -27,6 +28,22 @@ const Head = () => {
       clearTimeout(timer);
     };
   }, [searchQuery]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        searchBarRef.current &&
+        !searchBarRef.current.contains(event.target)
+      ) {
+        setShowSuggestions(false);
+      }
+    };
+
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
   const getSearchSugsestions = async () => {
     const data = await fetch(YOUTUBE_SEARCH_API + searchQuery);
@@ -71,6 +88,7 @@ const Head = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggestions(true)}
+            ref={searchBarRef}
             // onBlur={() => setShowSuggestions(false)}
           />
           <button

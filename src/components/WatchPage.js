@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { closeMenu } from "../utils/appSlice";
 import { YOUTUBE_VIDEO_BY_ID } from "../utils/constants";
 import CommentsContainer from "./CommentsContainer";
+import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
   const [searchParams] = useSearchParams();
@@ -23,10 +24,10 @@ const WatchPage = () => {
 
   return (
     <div className="flex flex-col w-full py-6 h-screen overflow-y-auto pb-24">
-      <div className="px-5 flex w-full">
-        <div className="w-[1000px] flex flex-col gap-2">
+      <div className="px-5 flex w-full gap-5">
+        <div className="w-[950px] flex flex-col gap-2">
           <iframe
-            width="1000"
+            width="950"
             height="550"
             src={"https://www.youtube.com/embed/" + videoId + "?autoplay=1"}
             title="YouTube video player"
@@ -49,9 +50,11 @@ const WatchPage = () => {
             </div>
           </div>
         </div>
-        <div className="w-full">{/* <LiveChat /> */}</div>
+        <div className="w-full">
+          <LiveChat />
+        </div>
       </div>
-      <div className="w-[1000px]">
+      <div className="w-[950px]">
         <CommentsContainer />
       </div>
     </div>
